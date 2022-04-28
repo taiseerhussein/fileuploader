@@ -1,0 +1,54 @@
+apiVersion: v1
+data:
+  service-ca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIDUTCCAjmgAwIBAgIIAwL4kvs2CLswDQYJKoZIhvcNAQELBQAwNjE0MDIGA1UE
+    Awwrb3BlbnNoaWZ0LXNlcnZpY2Utc2VydmluZy1zaWduZXJAMTY1MDY3MTkyMzAe
+    Fw0yMjA0MjIyMzU4NDJaFw0yNDA2MjAyMzU4NDNaMDYxNDAyBgNVBAMMK29wZW5z
+    aGlmdC1zZXJ2aWNlLXNlcnZpbmctc2lnbmVyQDE2NTA2NzE5MjMwggEiMA0GCSqG
+    SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDF29iM5kuSewewFrzRhdnposA8Ugj0VD8p
+    Jtx1lUvN0xF5GNQvvmQrI3jngyQPXJhZqOWIHKA8kyEHc+P5RUDuzg6M/dVrqxCV
+    oG07/mpSvy4XY8Vh+4LZSmsb0nqAVQk225kOm5xCDgHJ4xWn4Hzy8EDSGhSlGa3m
+    dbjzUcqyj3ffnZxSdfYsyHbB9RL3x9zUWkaRL7EulVc6qam0G4O86Y9wRG8HhfYx
+    ge6JUCzxoVkocjslRJ/80aOzYYp0NBiDDbZq9tR6YUBg8pkUHPkWD0FCyCQoYfRB
+    NR51wF1nmQZFdUKUCWcACSXWiMOsrijJw/U4Vz8z/v+00Ky0Uc8ZAgMBAAGjYzBh
+    MA4GA1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSO/JDA
+    0uUyM26QlIMmhrMrL8kBbzAfBgNVHSMEGDAWgBSO/JDA0uUyM26QlIMmhrMrL8kB
+    bzANBgkqhkiG9w0BAQsFAAOCAQEAA0MnZbaYnTYRw7AfgalbZik1d0dZ54VT7Q80
+    CzqI8E0MgkvuKfNYmsVNz+OZSawfnh0xoUIANo/bCOSP8s0M+dDJf8iqeS/51eQI
+    MXCtGiCQy6ExwDHm7kAaRxNa8tiKiWQsqbJnz0dqmy1t3adPlF+QRU8/JuegSN4g
+    JlkNiLHn8P1iqzJVtlzWYw0kypjl5HdSUIpYyxPNPu1qrfs7npwCIYPx0o997pfY
+    awfAY3OkOwqscO1e/q6HxiAFh9aLbYvqtL8u7nKtOAONjaMT3QukbiaiLXvufdnm
+    IC6raBdzRGNqbxelKKtpce6OZ8RucgYyXbri5DiJ/uSTtyjyTQ==
+    -----END CERTIFICATE-----
+kind: ConfigMap
+metadata:
+  annotations:
+    service.beta.openshift.io/inject-cabundle: "true"
+  labels:
+    app.kubernetes.io/part-of: tekton-pipelines
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:service.beta.openshift.io/inject-cabundle: {}
+        f:labels:
+          .: {}
+          f:app.kubernetes.io/part-of: {}
+    manager: openshift-pipelines-operator
+    operation: Update
+    time: "2022-04-26T15:59:11Z"
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:data:
+        .: {}
+        f:service-ca.crt: {}
+    manager: service-ca-operator
+    operation: Update
+    time: "2022-04-26T15:59:11Z"
+  name: config-service-cabundle
+  namespace: file-uploader

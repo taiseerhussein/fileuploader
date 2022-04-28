@@ -1,0 +1,34 @@
+apiVersion: authorization.openshift.io/v1
+groupNames: null
+kind: RoleBinding
+metadata:
+  annotations:
+    openshift.io/description: Allows deploymentconfigs in this namespace to rollout
+      pods in this namespace.  It is auto-managed by a controller; remove subjects
+      to disable.
+  managedFields:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:openshift.io/description: {}
+      f:roleRef:
+        f:apiGroup: {}
+        f:kind: {}
+        f:name: {}
+      f:subjects: {}
+    manager: openshift-controller-manager
+    operation: Update
+    time: "2022-04-26T15:59:11Z"
+  name: system:deployers
+  namespace: file-uploader
+roleRef:
+  name: system:deployer
+subjects:
+- kind: ServiceAccount
+  name: deployer
+  namespace: file-uploader
+userNames:
+- system:serviceaccount:file-uploader:deployer

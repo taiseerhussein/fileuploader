@@ -1,0 +1,32 @@
+apiVersion: authorization.openshift.io/v1
+groupNames:
+- system:serviceaccounts:file-uploader
+kind: RoleBinding
+metadata:
+  annotations:
+    openshift.io/description: Allows all pods in this namespace to pull images from
+      this namespace.  It is auto-managed by a controller; remove subjects to disable.
+  managedFields:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:openshift.io/description: {}
+      f:roleRef:
+        f:apiGroup: {}
+        f:kind: {}
+        f:name: {}
+      f:subjects: {}
+    manager: openshift-controller-manager
+    operation: Update
+    time: "2022-04-26T15:59:11Z"
+  name: system:image-pullers
+  namespace: file-uploader
+roleRef:
+  name: system:image-puller
+subjects:
+- kind: SystemGroup
+  name: system:serviceaccounts:file-uploader
+userNames: null

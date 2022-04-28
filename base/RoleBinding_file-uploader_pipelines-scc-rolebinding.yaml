@@ -1,0 +1,26 @@
+apiVersion: authorization.openshift.io/v1
+groupNames: null
+kind: RoleBinding
+metadata:
+  managedFields:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:roleRef:
+        f:apiGroup: {}
+        f:kind: {}
+        f:name: {}
+      f:subjects: {}
+    manager: openshift-pipelines-operator
+    operation: Update
+    time: "2022-04-26T15:59:11Z"
+  name: pipelines-scc-rolebinding
+  namespace: file-uploader
+roleRef:
+  name: pipelines-scc-clusterrole
+subjects:
+- kind: ServiceAccount
+  name: pipeline
+  namespace: file-uploader
+userNames:
+- system:serviceaccount:file-uploader:pipeline

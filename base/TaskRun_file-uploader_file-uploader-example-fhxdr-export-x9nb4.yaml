@@ -1,0 +1,99 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  annotations:
+    description: |
+      Discover, and write to disk, all of the resources from a specified
+      cluster's namespace.
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"tekton.dev/v1beta1","kind":"ClusterTask","metadata":{"annotations":{"description":"Discover, and write to disk, all of the resources from a specified\ncluster's namespace.\n"},"labels":{"app":"crane-runner"},"name":"crane-export"},"spec":{"params":[{"description":"The name of the context from kubeconfig representing the source\ncluster.\n\nYou can get this information in your current environment using\n`kubectl config get-contexts` to describe your one or many\ncontexts.\n","name":"context","type":"string"},{"description":"The namespace from which to export resources.\n","name":"namespace","type":"string"}],"steps":[{"env":[{"name":"KUBECONFIG","value":"$(workspaces.kubeconfig.path)/kubeconfig"}],"image":"quay.io/konveyor/crane-runner:latest","name":"crane-export","script":"crane export \\\n  --context=\"$(params.context)\" \\\n  --namespace=\"$(params.namespace)\" \\\n  --export-dir=\"$(workspaces.export.path)\"\n\nfind $(workspaces.export.path)\n"}],"workspaces":[{"description":"Directory where results of crane export will be stored for future use\nin other tasks.\n","mountPath":"/var/crane/export","name":"export"},{"description":"The kubeconfig for accessing the cluster.\n","name":"kubeconfig"}]}}
+    pipeline.tekton.dev/release: v0.22.0
+  labels:
+    app: crane-runner
+    app.kubernetes.io/managed-by: tekton-pipelines
+    tekton.dev/clusterTask: crane-export
+    tekton.dev/pipeline: file-uploader-example-fhxdr
+    tekton.dev/pipelineRun: file-uploader-example-fhxdr
+    tekton.dev/pipelineTask: export
+  managedFields:
+  - apiVersion: tekton.dev/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:description: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:pipeline.tekton.dev/release: {}
+        f:labels:
+          .: {}
+          f:app: {}
+          f:tekton.dev/clusterTask: {}
+          f:tekton.dev/pipeline: {}
+          f:tekton.dev/pipelineRun: {}
+          f:tekton.dev/pipelineTask: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"58e17e77-6cc2-4f16-b64b-038a7da1a3cc"}:
+            .: {}
+            f:apiVersion: {}
+            f:blockOwnerDeletion: {}
+            f:controller: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        .: {}
+        f:params: {}
+        f:resources: {}
+        f:serviceAccountName: {}
+        f:taskRef:
+          .: {}
+          f:kind: {}
+          f:name: {}
+        f:timeout: {}
+        f:workspaces: {}
+      f:status:
+        .: {}
+        f:completionTime: {}
+        f:conditions: {}
+        f:podName: {}
+        f:startTime: {}
+        f:steps: {}
+        f:taskSpec:
+          .: {}
+          f:params: {}
+          f:steps: {}
+          f:workspaces: {}
+    manager: openshift-pipelines-controller
+    operation: Update
+    time: "2022-04-26T16:57:12Z"
+  name: file-uploader-example-fhxdr-export-x9nb4
+  namespace: file-uploader
+  ownerReferences:
+  - apiVersion: tekton.dev/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: PipelineRun
+    name: file-uploader-example-fhxdr
+    uid: 58e17e77-6cc2-4f16-b64b-038a7da1a3cc
+spec:
+  params:
+  - name: context
+    value: src
+  - name: namespace
+    value: file-uploader
+  resources: {}
+  serviceAccountName: pipeline
+  taskRef:
+    kind: ClusterTask
+    name: crane-export
+  timeout: 1h0m0s
+  workspaces:
+  - name: export
+    persistentVolumeClaim:
+      claimName: file-uploader-example
+    subPath: export
+  - name: kubeconfig
+    secret:
+      secretName: kubeconfig
